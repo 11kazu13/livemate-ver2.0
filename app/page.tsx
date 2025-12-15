@@ -84,6 +84,30 @@ export default function Home() {
     setXUsername("");
   }
 
+  async function handleDelete(id: number) {
+  const deleteToken = prompt("削除キーを入力してください");
+  if (!deleteToken) return;
+
+  const res = await fetch(`/api/posts/${id}`, {
+    method: "DELETE",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ deleteToken }),
+  });
+
+  const data = await res.json();
+
+  if (!data.ok) {
+    alert(
+      data.error === "INVALID_DELETE_TOKEN"
+        ? "削除キーが違います"
+        : "削除に失敗しました"
+    );
+    return;
+  }
+
+  setPosts((prev) => prev.filter((p) => p.id !== id));
+}
+
   return (
     <div className="min-h-screen bg-gray-900 text-gray-100">
       <header className="max-w-2xl mx-auto p-4">
@@ -180,6 +204,12 @@ export default function Home() {
                     <span className="text-xs text-gray-400">
                       {p.x_username}
                     </span>
+                    <button
+                      onClick={() => handleDelete(p.id)}
+                      className="text-xs text-red-400 hover:text-red-300"
+                    >
+                      削除
+                    </button>
                   </div>
                   <p className="text-sm text-gray-300 mt-1">
                     {p.date} ｜ {p.area}
