@@ -1,17 +1,24 @@
 import { NextResponse } from "next/server";
 import crypto from "crypto";
-import { supabaseAdmin } from "@/src/lib/supabaseAdmin";
+import { supabaseAdmin } from "@/lib/supabaseAdmin";
 
 function hashToken(token: string) {
   return crypto.createHash("sha256").update(token).digest("hex");
 }
 
 export async function DELETE(
-  _req: Request,
-  { params }: { params: { id: string } }
+  req: Request,
+  { params }: { params: Promise<{ id: string }> }
 ) {
-  const { id } = params;
-  const body = await _req.json().catch(() => ({}));
+  // ✅ Next.js 16: params は Promise なので await が必要
+  const { id } = await params;
+
+  const postId = Number(id);
+  if (!Number.isFinite(postId)) {
+    return NextResponse.json({ ok: false, error: "INVALID_ID" }, { status: 400 });
+  }
+
+  const body = await req.json().catch(() => ({}));
   const deleteToken = String(body.deleteToken ?? "").trim();
 
   if (!deleteToken) {
@@ -27,14 +34,11 @@ export async function DELETE(
   const { data: post, error: fetchErr } = await supabaseAdmin
     .from("posts")
     .select("id, delete_token_hash")
-    .eq("id", id)
+    .eq("id", postId)
     .single();
 
   if (fetchErr || !post) {
-    return NextResponse.json(
-      { ok: false, error: "NOT_FOUND" },
-      { status: 404 }
-    );
+    return NextResponse.json({ ok: false, error: "NOT_FOUND" }, { status: 404 });
   }
 
   if (post.delete_token_hash !== delete_token_hash) {
@@ -47,13 +51,10 @@ export async function DELETE(
   const { error: delErr } = await supabaseAdmin
     .from("posts")
     .delete()
-    .eq("id", id);
+    .eq("id", postId);
 
   if (delErr) {
-    return NextResponse.json(
-      { ok: false, error: delErr.message },
-      { status: 500 }
-    );
+    return NextResponse.json({ ok: false, error: delErr.message }, { status: 500 });
   }
 
   return NextResponse.json({ ok: true });
