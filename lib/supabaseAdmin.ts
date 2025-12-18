@@ -1,7 +1,7 @@
 import { createClient } from "@supabase/supabase-js";
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
+const supabaseUrl = process.env.sb_publishable_WoyuqBZiXrRKHj6BHvYHfQ_1Gxypm1a!;
+const serviceRoleKey = process.env.sb_secret_xF2zOElR7_OhvtUOlyoTUA_f3dnYLcy!;
 
 export const supabaseAdmin = createClient(supabaseUrl, serviceRoleKey, {
   auth: { persistSession: false },
