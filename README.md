@@ -1,4 +1,6 @@
-# LiveMate（https://livemate.vercel.app/）
+# LiveMate
+
+https://livemate.vercel.app/
 
 イベント参加者向けのシンプルな投稿・閲覧アプリです。  
 学習目的としてdbを有したwebアプリ開発の一連の流れについての理解を深めるために開発しました。
