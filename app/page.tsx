@@ -138,7 +138,7 @@ export default function Home() {
                 value={date}
                 onChange={(e) => setDate(e.target.value)}
                 type="date"
-                className="w-full rounded bg-gray-900 border border-gray-700 p-2"
+                className="date-input w-full rounded bg-gray-900 border border-gray-700 p-2"
               />
             </div>
 
