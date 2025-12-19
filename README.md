@@ -1,36 +1,56 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# LiveMate
 
-## Getting Started
+イベント参加者向けのシンプルな投稿・閲覧アプリです。  
+学習目的としてdbを有したwebアプリ開発の一連の流れについての理解を深めるために開発しました。
 
-First, run the development server:
+## 概要
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+このアプリでは、ユーザーが投稿を作成し、一覧として閲覧できます。  
+ログイン機能は設けず、投稿時に発行される削除トークンを使って、投稿者本人のみが削除できる仕組みを採用しています。
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 主な機能
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- 投稿の作成・一覧表示
+- 投稿者本人による削除
+- 新しい投稿が上に表示される並び順
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 使用技術
 
-## Learn More
+- Next.js（App Router）
+- TypeScript
+- Supabase（DB）
+- Node.js
+- Vercel
 
-To learn more about Next.js, take a look at the following resources:
+## 技術的なポイント
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 削除トークン方式
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+投稿作成時にランダムなトークンを生成し、
 
-## Deploy on Vercel
+- クライアントには **平文トークン**
+- データベースには **ハッシュ化したトークン**
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+を保存しています。
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+削除リクエスト時に、入力されたトークンをハッシュ化して照合することで、
+サーバー側にトークンの平文を保持しない設計にしています。
+
+
+crypto.randomBytes(2).toString("hex");
+という実装により、
+人間がコピペできる長さと十分なランダム性のバランスを意識しました。
+
+## 学習目的・背景
+
+* HTTPメソッド（GET / POST / DELETE）の理解
+* フロントエンドとバックエンドの責務分離
+* 「ボタンを押すと裏で何が起きているのか」を追えるようになること
+
+特に、NetworkタブやAPI Routeの処理を追いながら、
+通信の流れを自分の言葉で説明できる状態を目指しました。
+
+## 今後の改善予定
+
+* 認証機能を導入した別バージョンの検討
+* ライブカレンダーと連携したライブ情報詳細確認の機能
