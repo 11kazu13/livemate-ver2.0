@@ -1,11 +1,11 @@
-"use client";
+"use client"; // クライアントサーバーモード
 
 import { useEffect, useMemo, useState } from "react";
 
 type Post = {
   id: number;
   title: string;
-  date: string; // "2025-12-20" みたいに来る
+  date: string;
   area: string;
   comment: string | null;
   x_username: string;
@@ -185,7 +185,7 @@ export default function Home() {
                 value={xUsername}
                 onChange={(e) => setXUsername(e.target.value)}
                 type="text"
-                placeholder="例）@123"
+                placeholder="例）@nagi_nyan"
                 className="w-full rounded bg-gray-900 border border-gray-700 p-2"
               />
               <p className="text-xs text-gray-400 mt-1">
