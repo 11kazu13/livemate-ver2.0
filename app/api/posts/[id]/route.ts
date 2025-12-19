@@ -10,7 +10,6 @@ export async function DELETE(
   req: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
-  // ✅ Next.js 16: params は Promise なので await が必要
   const { id } = await params;
 
   const postId = Number(id);

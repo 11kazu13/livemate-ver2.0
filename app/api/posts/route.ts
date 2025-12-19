@@ -3,8 +3,8 @@ import crypto from "crypto";
 import { supabaseAdmin } from "@/lib/supabaseAdmin";
 
 function makeDeleteToken() {
-  // 人間がコピペしやすい感じに（長すぎない）
-  return crypto.randomBytes(2).toString("hex"); // 32文字
+  // コピペしやすい感じに（長すぎない）
+  return crypto.randomBytes(2).toString("hex"); // 4文字の16進数
 }
 
 function hashToken(token: string) {

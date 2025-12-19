@@ -75,7 +75,7 @@ export default function Home() {
     // 返ってきたpostを先頭に追加
     setPosts((prev) => [data.post as Post, ...prev]);
 
-    // deleteTokenはこの瞬間だけ表示（A方式）
+    // deleteTokenはこの瞬間だけ表示
     alert(
       `投稿完了！\n\n【削除キー】\n${data.deleteToken}\n\n※このキーは再発行できません。メモしてね。`
     );
