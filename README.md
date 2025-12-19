@@ -18,7 +18,7 @@ https://livemate.vercel.app/
 
 ## 使用技術
 
-- Next.js（App Router）
+- Next.js
 - TypeScript
 - Supabase（DB）
 - Node.js
