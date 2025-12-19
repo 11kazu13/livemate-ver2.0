@@ -110,7 +110,7 @@ export default function Home() {
   }
 
   async function handleDelete(id: number) {
-  const deleteToken = prompt("削除キーを入力してください");
+  const deleteToken = prompt("4桁の削除キーを入力してください");
   if (!deleteToken) return;
 
   const res = await fetch(`/api/posts/${id}`, {
@@ -185,11 +185,11 @@ export default function Home() {
                 value={xUsername}
                 onChange={(e) => setXUsername(e.target.value)}
                 type="text"
-                placeholder="例）@foo（@なしでもOK）"
+                placeholder="例）@123"
                 className="w-full rounded bg-gray-900 border border-gray-700 p-2"
               />
               <p className="text-xs text-gray-400 mt-1">
-                連絡はXのユーザ名で行う想定です。
+                連絡を行うためのXのユーザ名を教えてください。
               </p>
             </div>
 
