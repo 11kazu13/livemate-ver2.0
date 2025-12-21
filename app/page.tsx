@@ -70,6 +70,7 @@ export default function Home() {
       xUsername,
     };
 
+    // フォームに入力された内容をPOSTリクエストで送信
     const res = await fetch("/api/posts", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -78,6 +79,7 @@ export default function Home() {
 
     const data = await res.json();
 
+    // エラーチェック
     if (!data.ok) {
       alert(`投稿に失敗: ${data.error ?? "UNKNOWN"}`);
       return;
@@ -91,7 +93,7 @@ export default function Home() {
       `投稿完了！\n\n【削除キー】\n${data.deleteToken}\n\n※このキーは再発行できません。メモしてね。`
     );
 
-    // reset
+    // リセット
     setTitle("");
     setDate("");
     setArea("");
@@ -120,30 +122,33 @@ export default function Home() {
     }
   }
 
+  // 指定された投稿を削除する処理
   async function handleDelete(id: number) {
-  const deleteToken = prompt("4桁の削除キーを入力してください");
-  if (!deleteToken) return;
+    // 削除キー入力
+    const deleteToken = prompt("4桁の削除キーを入力してください");
+    if (!deleteToken) return;
 
-  const res = await fetch(`/api/posts/${id}`, {
-    method: "DELETE",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ deleteToken }),
-  });
+    const res = await fetch(`/api/posts/${id}`, {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ deleteToken }),
+    });
 
-  const data = await res.json();
+    const data = await res.json();
 
-  if (!data.ok) {
-    alert(
-      data.error === "INVALID_DELETE_TOKEN"
-        ? "削除キーが違います"
-        : "削除に失敗しました"
-    );
-    return;
+    if (!data.ok) {
+      alert(
+        data.error === "INVALID_DELETE_TOKEN"
+          ? "削除キーが違います"
+          : "削除に失敗しました"
+      );
+      return;
   }
 
   setPosts((prev) => prev.filter((p) => p.id !== id));
-}
+  }
 
+  // コンポーネントのレンダリング
   return (
     <div className="min-h-screen bg-gray-900 text-gray-100">
       <header className="max-w-2xl mx-auto p-4">
