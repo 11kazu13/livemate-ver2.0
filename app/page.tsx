@@ -1,7 +1,10 @@
-"use client"; // クライアントサーバーモード
+// クライアントサーバーモード：ブラウザ前提の機能を使用
+"use client";
 
+// このコンポーネントで使用するものをインポート
 import { useEffect, useMemo, useState } from "react";
 
+// 投稿データのタイプ定義
 type Post = {
   id: number;
   title: string;
@@ -12,45 +15,53 @@ type Post = {
   created_at: string;
 };
 
+// メインコンポーネント
 export default function Home() {
-  const [title, setTitle] = useState("");
-  const [date, setDate] = useState("");
+  const [title, setTitle] = useState(""); //titleという状態（state）を作りそれを更新するsetTitleを用意
+  const [date, setDate] = useState(""); // 初期値：空文字
   const [area, setArea] = useState("");
   const [comment, setComment] = useState("");
   const [xUsername, setXUsername] = useState("");
 
+  // DBから読み込んだ投稿と読み込み状態
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
 
+  // 今日の日付をレンダリング時に一回のみ計算して保持
   const today = useMemo(() => {
     return new Date().toISOString().split("T")[0];
   }, []);
 
+  // フォームのバリデーション（依存配列が更新された場合のみ実行）
   const isValid = useMemo(() => {
     return title.trim() && date.trim() && area.trim() && xUsername.trim();
   }, [title, date, area, xUsername]);
 
-  // 起動時にDBから読み込む
+  // 起動時にDBから投稿を読み込む
   useEffect(() => {
     (async () => {
       try {
-        const res = await fetch("/api/posts", { cache: "no-store" });
-        const data = await res.json();
-        if (data.ok) setPosts(data.posts);
+        const res = await fetch("/api/posts", { cache: "no-store" }); // APIルートにアクセス・キャッシュは無効
+        const data = await res.json(); // JSONの文字列をJSで扱える形に変換
+        if (data.ok) setPosts(data.posts); // 正常時はpostsにセット
       } finally {
-        setLoading(false);
+        setLoading(false); // 読み込み完了
       }
     })();
   }, []);
 
+  // フォームの送信処理
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    // デフォルトのリロードをキャンセル
     e.preventDefault();
 
+    // バリデーションチェック
     if (!isValid) {
       alert("ライブ名・日付・会場・Xユーザ名は必須です！");
       return;
     }
 
+    // サーバーに送るためのデータをまとめたオブジェクトを作成
     const payload = {
       title,
       date,
