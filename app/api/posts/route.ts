@@ -33,6 +33,7 @@ export async function GET() {
   return NextResponse.json({ ok: true, posts: data });
 }
 
+// API Routeのポストハンドラ
 export async function POST(req: Request) {
   const body = await req.json();
 
@@ -42,6 +43,7 @@ export async function POST(req: Request) {
   const comment = String(body.comment ?? "").trim();
   const xUsernameRaw = String(body.xUsername ?? "").trim();
 
+  // バリデーション：必須項目のチェック
   if (!title || !date || !area || !xUsernameRaw) {
     return NextResponse.json(
       { ok: false, error: "REQUIRED_FIELDS" },
@@ -49,14 +51,16 @@ export async function POST(req: Request) {
     );
   }
 
+  // Xユーザ名の先頭に@がなければ付与を三項演算子で処理
   const x_username = xUsernameRaw.startsWith("@") ? xUsernameRaw : `@${xUsernameRaw}`;
 
+  // 削除キーの生成とハッシュ化
   const deleteToken = makeDeleteToken();
   const delete_token_hash = hashToken(deleteToken);
 
   const { data, error } = await supabaseAdmin
-    .from("posts")
-    .insert({
+    .from("posts") // 対象のテーブルを選択
+    .insert({ // 挿入するデータをオブジェクトで指定
       title,
       date,
       area,
@@ -64,8 +68,8 @@ export async function POST(req: Request) {
       x_username,
       delete_token_hash,
     })
-    .select("id,title,date,area,comment,x_username,created_at")
-    .single();
+    .select("id,title,date,area,comment,x_username,created_at") // 挿入後に取得するカラムを指定
+    .single(); // 一つのオブジェクトとして扱う
 
   if (error) {
     return NextResponse.json({ ok: false, error: error.message }, { status: 500 });
