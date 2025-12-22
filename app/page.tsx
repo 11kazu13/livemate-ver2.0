@@ -175,7 +175,18 @@ export default function Home() {
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 type="text"
-                className="w-full rounded bg-gray-900 border border-gray-700 p-2"
+                className="
+                  w-full
+                  rounded-[var(radius)]
+                  bg-[#0f1526]
+                  border border-[var(--border)]
+                  px-4 py-2
+                  text-sm
+                  placeholder:text-[var(--text-sub)]
+                  focus:outline-none
+                  focus:border-[var(--accent)]
+                  focus:ring-1 focus:ring-[var(--accent)]
+                "
               />
             </div>
 
