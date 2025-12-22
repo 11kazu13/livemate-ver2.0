@@ -1,4 +1,4 @@
-# LiveMate
+# LiveMate-ver2.0
 
 **ライブ同行者募集掲示板**
 
