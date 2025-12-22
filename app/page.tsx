@@ -197,7 +197,18 @@ export default function Home() {
                 min={today}
                 onChange={handleDateChange}
                 type="date"
-                className="date-input w-full rounded bg-gray-900 border border-gray-700 p-2"
+                className="
+                  w-full
+                  rounded-[var(radius)]
+                  bg-[#2a0f45]
+                  border border-[var(--border)]
+                  px-4 py-2
+                  text-sm
+                  placeholder:text-[var(--text-sub)]
+                  focus:outline-none
+                  focus:border-[var(--accent)]
+                  focus:ring-1 focus:ring-[var(--accent)]
+                "
               />
             </div>
 
@@ -208,7 +219,18 @@ export default function Home() {
                 onChange={(e) => setArea(e.target.value)}
                 type="text"
                 placeholder="例）Veats Shibuya"
-                className="w-full rounded bg-gray-900 border border-gray-700 p-2"
+                className="
+                  w-full
+                  rounded-[var(radius)]
+                  bg-[#2a0f45]
+                  border border-[var(--border)]
+                  px-4 py-2
+                  text-sm
+                  placeholder:text-[var(--text-sub)]
+                  focus:outline-none
+                  focus:border-[var(--accent)]
+                  focus:ring-1 focus:ring-[var(--accent)]
+                "
               />
             </div>
 
@@ -219,9 +241,20 @@ export default function Home() {
                 onChange={(e) => setXUsername(e.target.value)}
                 type="text"
                 placeholder="例）@nagi_nyan"
-                className="w-full rounded bg-gray-900 border border-gray-700 p-2"
+                className="
+                  w-full
+                  rounded-[var(radius)]
+                  bg-[#2a0f45]
+                  border border-[var(--border)]
+                  px-4 py-2
+                  text-sm
+                  placeholder:text-[var(--text-sub)]
+                  focus:outline-none
+                  focus:border-[var(--accent)]
+                  focus:ring-1 focus:ring-[var(--accent)]
+                "
               />
-              <p className="text-xs text-gray-400 mt-1">
+              <p className="text-xs text-[var(--text-sub)] mt-1">
                 連絡を行うためのXのユーザ名を教えてください。
               </p>
             </div>
@@ -233,13 +266,34 @@ export default function Home() {
                 onChange={(e) => setComment(e.target.value)}
                 rows={2}
                 placeholder="初現場なので優しくしてください…など"
-                className="w-full rounded bg-gray-900 border border-gray-700 p-2"
+                className="
+                  w-full
+                  rounded-[var(radius)]
+                  bg-[#2a0f45]
+                  border border-[var(--border)]
+                  px-4 py-2
+                  text-sm
+                  placeholder:text-[var(--text-sub)]
+                  focus:outline-none
+                  focus:border-[var(--accent)]
+                  focus:ring-1 focus:ring-[var(--accent)]
+                "
               />
             </div>
 
             <button
               type="submit"
-              className="w-full bg-blue-600 hover:bg-blue-500 rounded p-2 font-medium disabled:opacity-50"
+              className="
+                w-full
+                rounded-[var(--radius)]
+                bg-[var(accent)]
+                hover:opacity-90
+                text-white
+                py-2
+                font-medium
+                transition
+                disabled:opacity-50
+              "
               disabled={!isValid}
             >
               投稿する
