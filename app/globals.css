@@ -1,26 +1,28 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+  /* 基本の色味 */
+  --bg: #0b0f1a; /* 背景の色 */
+  --panel: #12182a; /* カードやフォームの色 */
+  --border: #1f2a44; /* 枠線の色 */
+  --text-main: #e6e9f2; /* 主要なテキストの色 */
+  --text-sub: #9aa4bf; /* 補助的なテキストの色 */
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  /* アクセント */
+  --accent: #5b7cff;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  /* UIのルール */
+  --radius: 12px; /* 角丸の大きさ */
+  --radius-lg: 16px; /* 大きめの角丸 */
+  --shadow-soft: 0 10px 30px rgba(0,0,0,.35);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: radial-gradient( /* グラデーション */
+    1200px 600px at top center,
+    #141b33,
+    var(--bg)
+  );
+  color: var(--text-main);
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont;
 }
