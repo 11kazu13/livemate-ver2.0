@@ -150,16 +150,22 @@ export default function Home() {
 
   // コンポーネントのレンダリング
   return (
-    <div className="min-h-screen bg-gray-900 text-gray-100">
+    <div className="min-h-screen bg-[var(--bg)] text-[var(--text-main)]">
       <header className="max-w-2xl mx-auto p-4">
         <h1 className="text-2xl font-bold">ライブ同行掲示板</h1>
-        <p className="text-sm text-gray-400">
+        <p className="text-sm text-[var(--text-sub)]">
           「ひとりで現場行くのがちょっと怖い…」を解決する掲示板です。
         </p>
       </header>
 
       <main className="max-w-2xl mx-auto p-4 space-y-6">
-        <section className="bg-gray-800 rounded-lg p-4">
+        <section className="
+          bg-[var(--panel)]
+          border border-[var(--border)]
+          rounded-[var(--radius-lg)]
+          shadow-[var(--shadow-soft)]
+          p-6
+        ">
           <h2 className="text-lg font-semibold mb-4">同行者を募集する</h2>
 
           <form className="space-y-3" onSubmit={handleSubmit}>
@@ -234,9 +240,9 @@ export default function Home() {
           <h2 className="text-lg font-semibold mb-4">募集一覧</h2>
 
           {loading ? (
-            <p className="text-gray-400 text-sm">読み込み中…</p>
+            <p className="text-[var(--text-sub)] text-sm">読み込み中…</p>
           ) : posts.length === 0 ? (
-            <p className="text-gray-400 text-sm">まだ投稿はありません。</p>
+            <p className="text-[var(--text-sub)] text-sm">まだ投稿はありません。</p>
           ) : (
             <div className="space-y-3">
               {posts.map((p) => (
