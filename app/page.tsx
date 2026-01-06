@@ -1,10 +1,8 @@
-// クライアントサーバーモード：ブラウザ前提の機能を使用
 "use client";
 
-// このコンポーネントで使用するものをインポート
 import { useEffect, useMemo, useState } from "react";
 
-// 投稿データのタイプ定義
+// 投稿データのタイプを定義
 type Post = {
   id: number;
   title: string;
