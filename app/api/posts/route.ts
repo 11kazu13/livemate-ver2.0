@@ -20,17 +20,26 @@ function hashToken(token: string) {
 
 // GETリクエスト：投稿一覧の取得
 export async function GET() {
-  // 分割代入でdataとerrorを取得
-  const { data, error } = await supabaseAdmin
-    .from("posts") // どのテーブルを見るか
-    .select("id,title,date,area,comment,x_username,created_at") // 取得するカラムを指定
-    .order("created_at", { ascending: false }); // created_atの降順
+  try {
+    console.log("GET /api/posts start");
+    console.log("SUPABASE_URL exists?", !!process.env.NEXT_PUBLIC_SUPABASE_URL, !!process.env.SUPABASE_URL);
 
-  if (error) {
-    return NextResponse.json({ ok: false, error: error.message }, { status: 500 });
+    const { data, error } = await supabaseAdmin
+      .from("posts")
+      .select("id,title,date,area,comment,x_username,created_at")
+      .order("created_at", { ascending: false });
+
+    console.log("supabase returned", { hasData: !!data, error: error?.message });
+
+    if (error) {
+      return NextResponse.json({ ok: false, error: error.message }, { status: 500 });
+    }
+
+    return NextResponse.json({ ok: true, posts: data });
+  } catch (e: any) {
+    console.error("GET /api/posts crashed:", e);
+    return NextResponse.json({ ok: false, error: String(e?.message ?? e) }, { status: 500 });
   }
-
-  return NextResponse.json({ ok: true, posts: data });
 }
 
 // API Routeのポストハンドラ
