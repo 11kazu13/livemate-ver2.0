@@ -101,7 +101,7 @@ export default function Home() {
       comment?.trim() ? `【ひとこと】${comment.trim()}` : null,
       "",
       "#推し活",
-    ];.filter(Boolean);
+    ].filter(Boolean);
 
     const shareText = lines.join("\n");
 
