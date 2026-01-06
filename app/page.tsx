@@ -91,6 +91,30 @@ export default function Home() {
       `投稿完了！\n\n【削除キー】\n${data.deleteToken}\n\n※このキーは再発行できません。メモしてね。`
     );
 
+    // xへの共有
+    // 投稿内容を定義
+    const lines = [
+      "同行者募集🎤",
+      `【ライブ】${title}`,
+      `【日程】${date}`,
+      `【会場】${area}`,
+      comment?.trim() ? `【ひとこと】${comment.trim()}` : null,
+      "",
+      "#推し活",
+    ];.filter(Boolean);
+
+    const shareText = lines.join("\n");
+
+    // サイトのURL
+    const siteUrl = window.location.origin + "/";
+
+    // Xの投稿画面を開く
+    const intentUrl =
+      "https://twitter.com/intent/tweet?" +
+      new URLSearchParams({ text: shareText, url:siteUrl }).toString();
+
+    window.open(intentUrl, "_blank", "noopener,noreferrer");
+
     // リセット
     setTitle("");
     setDate("");
