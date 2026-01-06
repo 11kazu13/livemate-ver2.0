@@ -1,3 +1,5 @@
+export const runtime = "nodejs";
+
 // HTTPレスポンスを返すためのもの
 import { NextResponse } from "next/server";
 
