@@ -46,7 +46,7 @@ export default function Home() {
         setLoading(false); // 読み込み完了
       }
     })();
-  }, []);
+  }, []); // 空配列：初回レンダリング時に一回のみ
 
   // フォームの送信処理
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -152,7 +152,7 @@ export default function Home() {
       <header className="max-w-2xl mx-auto p-4">
         <h1 className="text-2xl font-bold">ライブ同行掲示板</h1>
         <p className="text-sm text-[var(--text-sub)]">
-          「ひとりで現場行くのがちょっと怖い…」を解決する掲示板です。
+          一緒にライブに行く友だちを募集してみませんか？
         </p>
       </header>
 
@@ -263,7 +263,7 @@ export default function Home() {
                 value={comment}
                 onChange={(e) => setComment(e.target.value)}
                 rows={2}
-                placeholder="初現場なので優しくしてください…など"
+                placeholder="同担さんと行けたらうれしいです…など"
                 className="
                   w-full
                   rounded-[var(radius)]
@@ -344,7 +344,7 @@ export default function Home() {
       </main>
 
       <footer className="max-w-2xl mx-auto p-4 text-center text-xs text-gray-500">
-        © 2025 LiveMate
+        © 2026 LiveMate
       </footer>
     </div>
   );
