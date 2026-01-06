@@ -15,13 +15,13 @@ type Post = {
 
 // メインコンポーネント
 export default function Home() {
-  const [title, setTitle] = useState(""); //titleという状態（state）を作りそれを更新するsetTitleを用意
-  const [date, setDate] = useState(""); // 初期値：空文字
+  const [title, setTitle] = useState(""); // titleという状態（state）を作りそれを更新するsetTitleを用意・初期値は空
+  const [date, setDate] = useState("");
   const [area, setArea] = useState("");
   const [comment, setComment] = useState("");
   const [xUsername, setXUsername] = useState("");
 
-  // DBから読み込んだ投稿と読み込み状態
+  // DBから読み込んだ投稿と読み込みの状態
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
 
