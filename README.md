@@ -30,7 +30,31 @@
 | **Database** | Supabase |
 | **Deployment** | Vercel |
 
-## 💡 技術的なポイントとこだわり
+## 🗄 データベース設計
+
+本プロジェクトでは、現時点で使用しているデータベーステーブルは **`posts` のみ**です。
+
+### テーブル構成
+
+#### posts（投稿）
+
+**主キー**
+- id
+
+**カラム一覧**
+
+| カラム名 | 型 | NULL | 説明 |
+|---|---|---|---|
+| id | int | NO | 投稿ID（主キー） |
+| title | text | NO | ライブ名 |
+| date | date | NO | 開催日 |
+| area | text | NO | 会場・エリア |
+| comment | text | YES | ひとことコメント |
+| x_username | text | NO | X（旧Twitter）のユーザー名 |
+| delete_token_hash | text | NO | 削除トークンのハッシュ値 |
+| created_at | timestamp | NO | 作成日時（自動生成） |
+
+## 💡 技術的なポイント
 
 ### 1. 削除トークンによる簡易認証（ログインレス）
 ログイン機能を実装せずに、「自分だけが自分の投稿を削除できる」仕組みを実現しました。
